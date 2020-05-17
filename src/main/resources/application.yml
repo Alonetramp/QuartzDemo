@@ -1,0 +1,10 @@
+logging:
+  config: classpath:logback-spring.xml
+
+server:
+  port: 8080
+spring:
+  application:
+    name: PLMQuartz
+  profiles:
+    active: dev

@@ -1,0 +1,60 @@
+logging:
+  config: classpath:logback-spring.xml
+
+server:
+  port: 8080
+spring:
+  application:
+    name: PLMQuartz
+  profiles:
+    active:
+    # 404 交给异常处理器处理
+  mvc:
+    throw-exception-if-no-handler-found: true
+  #  resources:
+  #    add-mappings: false    加了会找不到路径
+  ###########################数据源##################################
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: scott
+    password: tiger
+    ####  allowMultiQueries=true  允许一次提交多个SQL,防止mybatis拼接正确SQL时发生bad SQL grammar错误
+    url: jdbc:oracle:thin:@127.0.0.1:1521/ORCLPDB
+#    type: com.zaxxer.hikari.HikariDataSource
+#    hikari: #  连接MySQL8.0时有可能报Communications link failure,其他版本不知,可能是公私网弄错
+#      # 连接只读数据库时配置为true， 保证安全
+#      read-only: false
+#      # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒
+#      connection-timeout: 30000
+#      # 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟
+#      idle-timeout: 600000
+#      # 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒
+#      max-lifetime: 1800000
+#      # 连接池中允许的最大连接数。缺省值：10
+#      maximum-pool-size: 60
+#      minimum-idle: 10
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 8
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runsMillis: 60000
+      min-evictable-idle-timeMillis: 300000
+      validation-query: select 'x' FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      use-global-data-source-stat: true
+
+  aop:
+    proxy-target-class: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
