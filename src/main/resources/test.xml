@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <city c1="0">
-        <desc d1="101280101" d2="广州" d3="guangzhou" d4=""/>
-        <desc d1="101280102" d2="番禺" d3="panyu" d4="广东"/>
-        <desc d1="101280103" d2="从化" d3="conghua" d4="广东"/>
-        <desc d1="101280104" d2="增城" d3="zengcheng" d4="广东"/>
-        <desc d1="101280105" d2="花都" d3="huadu" d4="广东"/>
-        <!-- 有了属性只能通过这样获取值,添加注解标签 @XmlElement， 暂时不知道怎么解决，还得嵌套一个标签。所以不建议 -->
-        <desc d1="101280106" d2="花都" d3="huadu" d4="广东">
-            <value>value</value>
-        </desc>
-    </city>
-</configuration>
+<QuartzConfig>
+    <Schedules>
+        <Schedule c1="0">
+            <JobDetail name = "myJob" group="Job" Jobclazz="com.example.Quartz.HelloWorldJob"/>
+            <Trigger name="myJob" group="Job">
+                <description>定时器</description>
+                <startTime>2010-01-01 09:00:00</startTime>
+                <corn-expression>*/1 * * * * ?</corn-expression>
+            </Trigger>
+        </Schedule>
+    </Schedules>
+</QuartzConfig>
